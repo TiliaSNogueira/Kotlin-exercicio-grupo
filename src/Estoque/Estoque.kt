@@ -3,9 +3,16 @@ package Estoque
 class Estoque ( var nome: String, var quantidadeAtual: Int, var quantidadeMinima: Int) {
 
     init {
-        if (quantidadeAtual < 0 && quantidadeMinima < 0 ){
-            println("Não é possível que quantidade atual e quantidade minima sejam inferiores a zero.")
+        if (quantidadeAtual < 0 || quantidadeMinima < 0){
+            println("Erro no cadastro do item $nome, digite as quantidades corretas")
+            print("Digite a quantidade atual do item $nome:")
+            var newQtd = readLine()!!
+            quantidadeAtual = newQtd.toInt()
+            print("Digite a quantidade Minima do item $nome:")
+            var newQtdMin = readLine()!!
+            quantidadeMinima = newQtdMin.toInt()
         }
+        println("item $nome cadastrado com sucesso")
     }
 
     fun mudarNome(novoNome: String){
@@ -28,10 +35,17 @@ class Estoque ( var nome: String, var quantidadeAtual: Int, var quantidadeMinima
     }
 
     fun mostra(): String {
-        return "Produto: $nome  /  Quantidade minima: $quantidadeMinima  /  Quantidade atual: $quantidadeAtual"
+        return println("Produto: $nome  /  Quantidade minima: $quantidadeMinima  /  Quantidade atual: $quantidadeAtual").toString()
     }
 
-    fun precisaRepor() : Boolean{
-        return (quantidadeAtual <= quantidadeMinima)
+    fun precisaRepor(): Boolean {
+        if (quantidadeAtual <= quantidadeMinima){
+            println("Necessario repor o estoque do item $nome")
+            return true
+        }
+        else{
+            println("Item $nome esta com o estoque em dia")
+            return false
+        }
     }
 }
